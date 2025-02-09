@@ -1,0 +1,29 @@
+variable "credentials" {
+  description = "My Credentials"
+  default     = "./key.json"
+}
+
+variable "project" {
+  description = "Project"
+  default     = "<project name here>"
+}
+
+variable "region" {
+  description = "Region"
+  default     = "asia-east1"
+}
+
+variable "cluster_name" {
+  description = "Google Container Cluster Name"
+  default     = "autopilot-cluster"
+}
+
+variable "network_name" {
+  description = "Google Compute Network"
+  default     = "autopilot-network"
+}
+
+variable "subnetwork_name" {
+  description = "Google Compute Subnetwork"
+  default     = "autopilot-subnetwork"
+}
