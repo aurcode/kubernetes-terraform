@@ -1,17 +1,3 @@
-data "google_client_config" "default" {}
-
-provider "kubernetes" {
-  host                   = "https://${google_container_cluster.default.endpoint}"
-  token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(google_container_cluster.default.master_auth[0].cluster_ca_certificate)
-
-  ignore_annotations = [
-    "^autopilot\\.gke\\.io\\/.*",
-    "^cloud\\.google\\.com\\/.*"
-  ]
-}
-
-
 resource "kubernetes_deployment_v1" "nginx" {
   metadata {
     name = "nginx-deployment"
@@ -70,4 +56,8 @@ resource "kubernetes_service_v1" "nginx" {
 
     type = "LoadBalancer"
   }
+}
+
+output "nginx_public_ip" {
+  value = kubernetes_service_v1.nginx.status[0].load_balancer[0].ingress[0].ip
 }
